@@ -37,18 +37,19 @@ function initMap() {
     var options = {
         zoom: 18, // Set an initial zoom level
         center: { lat: 30.20809, lng: -97.84392 },
-        gestureHandling: "none",
+        gestureHandling: "auto", // Allow panning and zooming
         zoomControl: true,
         mapTypeId: google.maps.MapTypeId.SATELLITE,
         minZoom: 15, // Specify the minimum allowed zoom level
         maxZoom: 20, // Specify the maximum allowed zoom level
         restriction: {
             latLngBounds: bounds, // Apply the defined bounds
-            strictBounds: false // Allow zooming outside bounds, but re-center the map when releasing
+            strictBounds: true // Keep the map strictly within bounds while allowing panning
         }
     };
 
     var map = new google.maps.Map(document.getElementById('map'), options);
+
 
 
             var data = [
