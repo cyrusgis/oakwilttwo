@@ -28,16 +28,28 @@
       </div>
     <div id="map"></div>
     <script>
-        function initMap(){
-            var options = {
-                zoom: 20,
-                center: {lat:30.20809,lng:-97.84392},
-                gestureHandling: "none",
-                zoomControl: true,
-                mapTypeId: google.maps.MapTypeId.SATELLITE
-            }
+function initMap() {
+    var southWest = new google.maps.LatLng(30.20809, -97.84392); // Define the southwest corner of your desired map bounds
+    var northEast = new google.maps.LatLng(30.21309, -97.83892); // Define the northeast corner of your desired map bounds
 
-            var map = new google.maps.Map(document.getElementById('map'), options);
+    var bounds = new google.maps.LatLngBounds(southWest, northEast); // Create bounds based on the corner coordinates
+
+    var options = {
+        zoom: 18, // Set an initial zoom level
+        center: { lat: 30.20809, lng: -97.84392 },
+        gestureHandling: "none",
+        zoomControl: true,
+        mapTypeId: google.maps.MapTypeId.SATELLITE,
+        minZoom: 15, // Specify the minimum allowed zoom level
+        maxZoom: 20, // Specify the maximum allowed zoom level
+        restriction: {
+            latLngBounds: bounds, // Apply the defined bounds
+            strictBounds: false // Allow zooming outside bounds, but re-center the map when releasing
+        }
+    };
+
+    var map = new google.maps.Map(document.getElementById('map'), options);
+
 
             var data = [
           new google.maps.LatLng(30.207989084721202, -97.84377298130893),
