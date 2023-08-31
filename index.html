@@ -46,29 +46,26 @@ function initMap() {
     };
     var map = new google.maps.Map(document.getElementById('map'), options);
 
-            // Load and style oakwilt.geojson data
-            map.data.loadGeoJson("oakwilt.geojson");
-            map.data.setStyle({
+        // Load and style oakwilt.geojson data
+            var oakWiltLayer = new google.maps.Data();
+            oakWiltLayer.loadGeoJson("oakwilt.geojson");
+            oakWiltLayer.setStyle({
                 fillColor: 'red',
                 fillOpacity: 0.3,
                 strokeColor: 'red',
                 strokeWeight: 1
             });
+            oakWiltLayer.setMap(map);
 
             // Load parcels.geojson data
-            map.data.loadGeoJson("parcels.geojson");
-
-            // Apply individual styles to parcels.geojson features
-            map.data.addListener('addfeature', function(event) {
-                var feature = event.feature;
-                if (feature.getProperty('layer') === 'parcels') {
-                    map.data.overrideStyle(feature, {
-                        fillColor: 'none',
-                        strokeColor: 'black',
-                        strokeWeight: 1
-                    });
-                }
+            var parcelsLayer = new google.maps.Data();
+            parcelsLayer.loadGeoJson("parcels.geojson");
+            parcelsLayer.setStyle({
+                fillColor: 'none', // No fill
+                strokeColor: 'black', // Black border outline
+                strokeWeight: 1
             });
+            parcelsLayer.setMap(map);
     // Load the ArcGIS API modules using script tags
     var script = document.createElement('script');
     script.src = "https://js.arcgis.com/4.24/";
