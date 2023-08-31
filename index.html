@@ -55,27 +55,25 @@
             });
             oakWiltLayer.setMap(map);
 
-            // Load parcels.geojson data
-            var parcelsLayer = new google.maps.Data();
-            parcelsLayer.loadGeoJson("parcels.geojson");
-            parcelsLayer.setStyle(function(feature) {
-                var layerType = feature.getProperty('layer');
-                if (layerType === 'parcels') {
-                    return {
-                        fillColor: 'none',
-                        strokeColor: 'black',
-                        strokeWeight: 5
-                    };
-                } else if (layerType === 'oakwilt') {
-                    return {
-                        fillColor: 'red',
-                        fillOpacity: 0.3,
-                        strokeColor: 'red',
-                        strokeWeight: 1
-                    };
-                }
-            });
-            parcelsLayer.setMap(map);
+// Load parcels.geojson data
+var parcelsLayer = new google.maps.Data();
+parcelsLayer.loadGeoJson("parcels.geojson");
+parcelsLayer.setStyle(function(feature) {
+    var layerType = feature.getProperty('layer');
+    var style = {};
+    if (layerType === 'parcels') {
+        style.fillColor = 'none';
+        style.strokeColor = 'black';
+        style.strokeWeight = 0.5;
+    } else if (layerType === 'oakwilt') {
+        style.fillColor = 'red';
+        style.fillOpacity = 0.3;
+        style.strokeColor = 'red';
+        style.strokeWeight = 1;
+    }
+    return style;
+});
+parcelsLayer.setMap(map);
         }
 
     </script>
