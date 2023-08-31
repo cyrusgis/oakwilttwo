@@ -1,4 +1,4 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,29 +55,24 @@ l<!DOCTYPE html>
             });
             oakWiltLayer.setMap(map);
 
-// Load parcels.geojson data
-var parcelsLayer = new google.maps.Data();
-parcelsLayer.loadGeoJson("parcels.geojson");
-parcelsLayer.setStyle(function(feature) {
-    var layerType = feature.getProperty('layer');
-    if (layerType === 'parcels') {
-        var strokeWeight = 0.5; // Adjust this value to change stroke weight
-        return {
-            fillColor: 'none',
-            strokeColor: 'black',
-            strokeWeight: strokeWeight
-        };
-    } else if (layerType === 'oakwilt') {
-        return {
-            fillColor: 'red',
-            fillOpacity: 0.3,
-            strokeColor: 'red',
-            strokeWeight: 1
-        };
-    }
-});
-parcelsLayer.setMap(map);
+            // Load parcels.geojson data
+            $.getJSON("parcels.geojson", function(data) {
+                data.features.forEach(function(feature) {
+                    var layerType = feature.properties.layer;
+                    if (layerType === 'parcels') {
+                        var coords = feature.geometry.coordinates.map(function(coord) {
+                            return { lat: coord[1], lng: coord[0] };
+                        });
 
+                        var polyline = new google.maps.Polyline({
+                            path: coords,
+                            strokeColor: 'black',
+                            strokeWeight: 0.5,
+                            map: map
+                        });
+                    }
+                });
+            });
         }
 
     </script>
