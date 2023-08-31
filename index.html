@@ -55,6 +55,11 @@ function initMap() {
             });
 
     map.data.loadGeoJson("parcels.geojson");
+                map.data.setStyle({
+                fillColor: 'none', // No fill
+                strokeColor: 'black', // Black border outline
+                strokeWeight: 1
+            });
     // Load the ArcGIS API modules using script tags
     var script = document.createElement('script');
     script.src = "https://js.arcgis.com/4.24/";
