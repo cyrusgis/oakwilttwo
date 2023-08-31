@@ -60,20 +60,24 @@ var parcelsLayer = new google.maps.Data();
 parcelsLayer.loadGeoJson("parcels.geojson");
 parcelsLayer.setStyle(function(feature) {
     var layerType = feature.getProperty('layer');
-    var style = {};
     if (layerType === 'parcels') {
-        style.fillColor = 'none';
-        style.strokeColor = 'black';
-        style.strokeWeight = 0.5;
+        var strokeWeight = 0.5; // Adjust this value to change stroke weight
+        return {
+            fillColor: 'none',
+            strokeColor: 'black',
+            strokeWeight: strokeWeight
+        };
     } else if (layerType === 'oakwilt') {
-        style.fillColor = 'red';
-        style.fillOpacity = 0.3;
-        style.strokeColor = 'red';
-        style.strokeWeight = 1;
+        return {
+            fillColor: 'red',
+            fillOpacity: 0.3,
+            strokeColor: 'red',
+            strokeWeight: 1
+        };
     }
-    return style;
 });
 parcelsLayer.setMap(map);
+
         }
 
     </script>
