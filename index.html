@@ -46,7 +46,7 @@ function initMap() {
     };
     var map = new google.maps.Map(document.getElementById('map'), options);
 
-            // Load oakwilt.geojson data
+        // Load and style oakwilt.geojson data
             var oakWiltLayer = new google.maps.Data();
             oakWiltLayer.loadGeoJson("oakwilt.geojson");
             oakWiltLayer.setStyle({
@@ -60,25 +60,43 @@ function initMap() {
             // Load parcels.geojson data
             var parcelsLayer = new google.maps.Data();
             parcelsLayer.loadGeoJson("parcels.geojson");
-            parcelsLayer.setStyle(function(feature) {
-                var layerType = feature.getProperty('layer');
-                if (layerType === 'parcels') {
-                    return {
-                        fillColor: 'none',
-                        strokeColor: 'black',
-                        strokeWeight: 1
-                    };
-                } else if (layerType === 'oakwilt') {
-                    return {
-                        fillColor: 'red',
-                        fillOpacity: 0.3,
-                        strokeColor: 'red',
-                        strokeWeight: 1
-                    };
-                }
+            parcelsLayer.setStyle({
+                fillColor: 'none', // No fill
+                strokeColor: 'black', // Black border outline
+                strokeWeight: 1
             });
             parcelsLayer.setMap(map);
+    // Load the ArcGIS API modules using script tags
+    var script = document.createElement('script');
+    script.src = "https://js.arcgis.com/4.24/";
+    script.onload = function () {
+        // Create and add the Feature Layer to the Esri MapView
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/FeatureLayer"
+        ], function (Map, MapView, FeatureLayer) {
+            var esriMap = new Map({
+                basemap: "hybrid"
+            });
 
+            var esriView = new MapView({
+                container: "map",
+                map: esriMap,
+                center: [-97.84392, 30.20809], // Same as your Google Maps center
+                zoom: 18 // Same as your Google Maps zoom level
+            });
+
+            // Create and add the Feature Layer to the Esri MapView
+            var featureLayer = new FeatureLayer({
+                url: "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/PLANNINGCADASTRE_land_base_lot_line/FeatureServer/0"
+            });
+
+            esriMap.add(featureLayer);
+        });
+    };
+    document.head.appendChild(script);
+}
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwgQz9fD4KnkAvfWEDrKk7i2KFrfCcleo&callback=initMap"></script>
 </body>
