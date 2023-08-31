@@ -47,7 +47,12 @@ function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), options);
 
     map.data.loadGeoJson("oakwilt.geojson");
-
+    map.data.setStyle({
+                fillColor: 'red',
+                fillOpacity: 0.5,
+                strokeColor: 'red',
+                strokeWeight: 1
+            });
     // Load the ArcGIS API modules using script tags
     var script = document.createElement('script');
     script.src = "https://js.arcgis.com/4.24/";
