@@ -46,19 +46,23 @@ function initMap() {
     };
     var map = new google.maps.Map(document.getElementById('map'), options);
 
-    map.data.loadGeoJson("oakwilt.geojson");
-    map.data.setStyle({
+            // Load and style oakwilt.geojson data
+            map.data.loadGeoJson("oakwilt.geojson");
+            map.data.setStyle({
                 fillColor: 'red',
                 fillOpacity: 0.3,
                 strokeColor: 'red',
                 strokeWeight: 1
             });
 
-    map.data.loadGeoJson("parcels.geojson");
-                map.data.setStyle({
-                fillColor: 'none', // No fill
-                strokeColor: 'black', // Black border outline
-                strokeWeight: 1
+            // Load and style parcels.geojson data
+            map.data.loadGeoJson("parcels.geojson");
+            map.data.setStyle(function(feature) {
+                return {
+                    fillColor: 'none', // No fill
+                    strokeColor: 'black', // Black border outline
+                    strokeWeight: 1
+                };
             });
     // Load the ArcGIS API modules using script tags
     var script = document.createElement('script');
