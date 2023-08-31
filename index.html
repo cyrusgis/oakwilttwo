@@ -46,7 +46,7 @@ function initMap() {
     };
     var map = new google.maps.Map(document.getElementById('map'), options);
 
-    map.data.loadGeoJson("https://github.com/cyrusgis/oakwilttwo/blob/a07e15ea9eca2cb5ffec7f673986b8f808b3e759/oakwilt.geojson");
+    map.data.loadGeoJson("oakwilt.geojson");
 
     // Load the ArcGIS API modules using script tags
     var script = document.createElement('script');
