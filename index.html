@@ -53,6 +53,8 @@ function initMap() {
                 strokeColor: 'red',
                 strokeWeight: 1
             });
+
+    map.data.loadGeoJson("parcels.geojson");
     // Load the ArcGIS API modules using script tags
     var script = document.createElement('script');
     script.src = "https://js.arcgis.com/4.24/";
