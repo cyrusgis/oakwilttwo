@@ -76,37 +76,6 @@
                 }
             });
             parcelsLayer.setMap(map);
-
-            // Load the ArcGIS API modules using script tags
-            var script = document.createElement('script');
-            script.src = "https://js.arcgis.com/4.24/";
-            script.onload = function () {
-                // Create and add the Feature Layer to the Esri MapView
-                require([
-                    "esri/Map",
-                    "esri/views/MapView",
-                    "esri/layers/FeatureLayer"
-                ], function (Map, MapView, FeatureLayer) {
-                    var esriMap = new Map({
-                        basemap: "hybrid"
-                    });
-
-                    var esriView = new MapView({
-                        container: "map",
-                        map: esriMap,
-                        center: [-97.84392, 30.20809], // Same as your Google Maps center
-                        zoom: 18 // Same as your Google Maps zoom level
-                    });
-
-                    // Create and add the Feature Layer to the Esri MapView
-                    var featureLayer = new FeatureLayer({
-                        url: "https://services.arcgis.com/0L95CJ0VTaxqcmED/ArcGIS/rest/services/PLANNINGCADASTRE_land_base_lot_line/FeatureServer/0"
-                    });
-
-                    esriMap.add(featureLayer);
-                });
-            };
-            document.head.appendChild(script);
         }
 
     </script>
